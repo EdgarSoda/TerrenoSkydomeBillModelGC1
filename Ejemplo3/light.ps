@@ -22,7 +22,12 @@ out vec4 outputColor;
 // UNIFORM VARIABLES //
 ///////////////////////
 uniform sampler2D shaderTexture;
+uniform sampler2D shaderTexture1;
 uniform sampler2D shaderTexture2;
+uniform sampler2D shaderTexture3;
+uniform sampler2D shaderTexture4;
+uniform sampler2D shaderTexture5;
+uniform sampler2D mexcla;
 uniform vec3 lightDirection;
 uniform vec4 diffuseLightColor;
 
@@ -39,11 +44,21 @@ void main(void)
 	vec3 lightDir;
 	float lightIntensity;
 
+	vec4 t1 = texture(shaderTexture, texCoord);
+	vec4 t2 = texture(shaderTexture2, texCoord);
+	vec4 t3 = texture(shaderTexture4, texCoord);
+	vec4 mt = texture(mexcla,texCoord/40.0);
+
 
 	// Obtener la textura difusa o de color
-	textureColor = texture(shaderTexture, texCoord);
+	textureColor = mix(t1,t2,mt.r);
+	textureColor = mix(textureColor,t3,mt.g);
+
+
+
+
 	//obtener el mapa de normales
-	bump = texture(shaderTexture2, texCoord).rgb;
+	bump = texture(shaderTexture1, texCoord).rgb;
 	//el mapa de normales va de 0 a 1 o sea de 0 a 90 grados, debe pasar de -1 a 1 y -90 a 90 grados
 	bump = 2.0 * bump - vec3(1.0,1.0,1.0);
 	//incluir la tang la binormal y la normal

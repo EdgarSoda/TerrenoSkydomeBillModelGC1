@@ -47,8 +47,9 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 
 	//Hacemos un arreglo:
 	const wchar_t* texturas[] = { {L"Zacatito.jpg"},{L"ZacatitoNorm2.jpg"},
-	{L"texterr2.jpg"},{L"texterr2Norm.jpg"},{L"lodotext.jpg"},{L"lodotextNorm.jpg"} };
-	int num_texts[] = {0,1,2,3,4,5};
+	{L"texterr2.jpg"},{L"texterr2Norm.jpg"},{L"lodotext.jpg"},{L"lodotextNorm.jpg"},
+	{L"mezcla.jpg"} };
+	int num_texts[] = {10,11,12,13,14,15,16};
 
 	terreno = new Terreno(hwnd, m_OpenGL, L"terrenonuevo6.jpg", texturas,
 		(float)400, (float)400, num_texts);
@@ -246,13 +247,20 @@ bool GraphicsClass::Render(float rotation)
 	// Rotate the world matrix by the rotation value so that the triangle will spin.
 	//m_OpenGL->MatrixRotationY(worldMatrix, rotation);
 
+	//Me quedé en el minuto 50
+
 	//// Set the light shader as the current shader program and set the matrices that it will use for rendering.
 	m_LightShader->SetShader(m_OpenGL);	
 	m_LightShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrix);
 	m_LightShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
 	m_LightShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
-	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture", 0);
-	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture2", 1);
+	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture", 10);
+	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture1", 11);
+	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture2", 12);
+	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture3", 13);
+	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture4", 14);
+	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture5", 15);
+	m_LightShader->Pon1Entero(m_OpenGL, (char*)"mexcla", 16);
 	m_LightShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_LightShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 	// Render the model using the light shader.

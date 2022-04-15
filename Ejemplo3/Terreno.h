@@ -94,7 +94,7 @@ public:
 
 		//Aquí se envían las distintas texturas:
 
-		for (int i = 0; i<6 ; i++)
+		for (int i = 0; i<7 ; i++)
 			Envia_Text(OpenGL, textura[i], numtext[i]);
 		
 
