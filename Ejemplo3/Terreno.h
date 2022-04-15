@@ -21,8 +21,8 @@ public:
 	unsigned int planoTextura;
 	unsigned int m_textureID;
 
-	Terreno(HWND hWnd, OpenGLClass* OpenGL, const wchar_t* alturas, const wchar_t* textura, const wchar_t* textura2,
-		float ancho, float prof, int numtext, int numtext2)
+	Terreno(HWND hWnd, OpenGLClass* OpenGL, const wchar_t* alturas, const wchar_t** textura,
+		float ancho, float prof, int* numtext)
 	{
 		anchof = ancho;
 		proff = prof;
@@ -90,35 +90,22 @@ public:
 		delete[] terreno.indices;
 		terreno.indices = 0;
 
-		Carga(textura);
-		// Set the unique texture unit in which to store the data.
-		OpenGL->glActiveTexture(GL_TEXTURE0 + numtext);
 
-		// Generate an ID for the texture.
-		glGenTextures(1, &m_textureID);
 
-		// Bind the texture as a 2D texture.
-		glBindTexture(GL_TEXTURE_2D, m_textureID);
+		//Aquí se envían las distintas texturas:
 
-		// Load the image data into the texture unit.
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Ancho(), Alto(), 0, 
-			GL_RGBA, GL_UNSIGNED_BYTE, Dir_Imagen());
+		for (int i = 0; i<6 ; i++)
+			Envia_Text(OpenGL, textura[i], numtext[i]);
 		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);		
 
-		// Set the texture filtering.
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-		// Generate mipmaps for the texture.
-		OpenGL->glGenerateMipmap(GL_TEXTURE_2D);
+		
+	}
 
-		Descarga();		
-
-		Carga(textura2);
+	void Envia_Text(OpenGLClass* OpenGL, const wchar_t* nombre, int num) {
+		Carga(nombre);
 		// Set the unique texture unit in which to store the data.
-		OpenGL->glActiveTexture(GL_TEXTURE0 + numtext2);
+		OpenGL->glActiveTexture(GL_TEXTURE0 + num);
 
 		// Generate an ID for the texture.
 		glGenTextures(1, &m_textureID);
@@ -141,7 +128,10 @@ public:
 		OpenGL->glGenerateMipmap(GL_TEXTURE_2D);
 
 		Descarga();
+
 	}
+
+
 
 	Terreno()
 	{}

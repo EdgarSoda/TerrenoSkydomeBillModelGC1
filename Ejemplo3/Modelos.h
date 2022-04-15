@@ -15,7 +15,7 @@ public:
 	float x, y, z, escala;
 	
 	//En honor a nuestros ancestros llamaremos "Maya" a la malla
-	//e suna estructura que contiene a los indices y vertices de la figura
+	//es una estructura que contiene a los indices y vertices de la figura
 	Maya modelo;
 	int canti, cantv;
 	//variables locales de la clase para contener los stacks y los slices de la esfera
@@ -195,7 +195,7 @@ public:
 
 		errno_t err;
 		FILE* file;
-		err = fopen_s(&file, "tetera.obj", "r");
+		err = fopen_s(&file, "tetera2.obj", "r");
 		if (file == NULL) {
 			printf("Impossible to open the file !\n");
 			return false;

@@ -44,8 +44,14 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 	// Set the initial position of the camera.
 	m_Camera->SetPosition(0.0f, 0.0f, 110.0f);
 
-	terreno = new Terreno(hwnd, m_OpenGL, L"terrenonuevo4.jpg", L"Zacatito.jpg", L"ZacatitoNorm.jpg",
-		(float)400, (float)400, 0, 1);
+
+	//Hacemos un arreglo:
+	const wchar_t* texturas[] = { {L"Zacatito.jpg"},{L"ZacatitoNorm2.jpg"},
+	{L"texterr2.jpg"},{L"texterr2Norm.jpg"},{L"lodotext.jpg"},{L"lodotextNorm.jpg"} };
+	int num_texts[] = {0,1,2,3,4,5};
+
+	terreno = new Terreno(hwnd, m_OpenGL, L"terrenonuevo6.jpg", texturas,
+		(float)400, (float)400, num_texts);
 
 	// Create the light shader object.
 	m_LightShader = new LightShaderClass((char*)"light.vs", (char*)"light.ps");
