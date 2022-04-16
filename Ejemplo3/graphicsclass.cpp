@@ -112,6 +112,7 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		return false;
 	}
 
+	//Modelo de la cerca de madera:
 	modelazo = new Modelos(hwnd, m_OpenGL, "cerca.obj", L"PINO.png", L"PinoNorm.jpg",L"PinoEspecular.jpg",0.5, 0.0, 0.0,4);
 
 	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
@@ -128,9 +129,10 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		return false;
 	}
 
+	//Modelo de la casa de madera:
 
-	modelazo_2 = new Modelos(hwnd, m_OpenGL, "tetera.obj", L"PINO.png", L"PinoNorm.jpg", L"PinoEspecular.jpg", 0.5, 0.0, 0.0, 4);
-
+	modelazo_2 = new Modelos(hwnd, m_OpenGL, "casademadera.obj", L"camiontexturabase.png", L"PinoNorm.jpg", L"PinoEspecular.jpg", 1.7, -5.0, -5.0, 5);
+	
 	m_ModeloShader_2 = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
 	if (!m_ModeloShader_2)
 	{
@@ -144,6 +146,9 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		MessageBox(hwnd, (LPCSTR)"Could not initialize the light shader object.", (LPCSTR)"Error", MB_OK);
 		return false;
 	}
+
+
+	//Modelo del pino:
 
 
 
@@ -333,7 +338,7 @@ bool GraphicsClass::Render(float rotation)
 	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
 	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
 	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
-	m_ModeloShader_2->Pon1Entero(m_OpenGL, (char*)"modtext", 4);
+	m_ModeloShader_2->Pon1Entero(m_OpenGL, (char*)"modtext", 5);
 	m_ModeloShader_2->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_ModeloShader_2->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 	// Render the model using the light shader.
