@@ -112,7 +112,7 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		return false;
 	}
 
-	modelazo = new Modelos(hwnd, m_OpenGL, L"PINO.png", 0.5, 0, 0);
+	modelazo = new Modelos(hwnd, m_OpenGL, "cerca.obj", L"PINO.png", L"PinoNorm.jpg",L"PinoEspecular.jpg",0.5, 0.0, 0.0,4);
 
 	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
 	if (!m_ModeloShader)
@@ -127,6 +127,28 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		MessageBox(hwnd, (LPCSTR)"Could not initialize the light shader object.", (LPCSTR)"Error", MB_OK);
 		return false;
 	}
+
+
+	modelazo_2 = new Modelos(hwnd, m_OpenGL, "tetera.obj", L"PINO.png", L"PinoNorm.jpg", L"PinoEspecular.jpg", 0.5, 0.0, 0.0, 4);
+
+	m_ModeloShader_2 = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader_2)
+	{
+		return false;
+	}
+
+	// Initialize the light shader object.
+	result = m_ModeloShader_2->Initialize(m_OpenGL, hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, (LPCSTR)"Could not initialize the light shader object.", (LPCSTR)"Error", MB_OK);
+		return false;
+	}
+
+
+
+
+
 
 	return true;
 }
@@ -295,6 +317,27 @@ bool GraphicsClass::Render(float rotation)
 	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 	// Render the model using the light shader.
 	modelazo->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+	
+
+
+
+	// 
+	// MODELO 2
+	// 
+	// Set the light shader as the current shader program and set the matrices that it will use for rendering.
+	m_ModeloShader_2->SetShader(m_OpenGL);
+	float modmatrix_2[16];
+	m_OpenGL->GetWorldMatrix(modmatrix);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo->x, terreno->Superficie(modelazo->x, modelazo->z), modelazo->z);
+	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader_2->Pon1Entero(m_OpenGL, (char*)"modtext", 4);
+	m_ModeloShader_2->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader_2->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	modelazo_2->Render(m_OpenGL);
 	// Present the rendered scene to the screen.
 	m_OpenGL->EndScene();
 

@@ -25,7 +25,8 @@ public:
 	unsigned int m_vertexArrayId, m_vertexBufferId, m_indexBufferId;
 	unsigned int m_textureID;
 
-	Modelos(HWND hWnd, OpenGLClass* OpenGL, const char nombreFile[], const wchar_t textura[], const wchar_t normMap[], const wchar_t specMap[], float escala, float x, float z, int textureNumber)
+	Modelos(HWND hWnd, OpenGLClass* OpenGL, const char nombreFile[], const wchar_t textura[],
+		const wchar_t normMap[], const wchar_t specMap[], float escala, float x, float z, int textureNumber)
 	{
 		this->escala = escala;
 		this->x = x;

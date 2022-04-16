@@ -52,10 +52,12 @@ private:
 	SkyDome* sky;
 	Billboard* bill;
 	Modelos* modelazo;
+	Modelos* modelazo_2;
 	LightShaderClass* m_LightShader;
 	LightShaderClass* m_LightShaderSky;
 	LightShaderClass* m_BillShader;
 	LightShaderClass* m_ModeloShader;
+	LightShaderClass* m_ModeloShader_2;
 	LightClass* m_Light;
 };
 
