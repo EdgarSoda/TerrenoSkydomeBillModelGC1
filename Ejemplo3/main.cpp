@@ -292,23 +292,23 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 		{
 			case 'd':
 			{
-				m_Graphics->angy += 0.6;
+				m_Graphics->angy += 3.0;
 			}
 			break;
 			case 'a':
 			{
-				m_Graphics->angy -= 0.6;
+				m_Graphics->angy -= 3.0;
 			}
 			break;
 			case 'w':
 			{
-				m_Graphics->vel = 0.5;
+				m_Graphics->vel = 1.0;
 				mientras = true;
 			}
 			break;
-			case 'x':
+			case 's':
 			{
-				m_Graphics->vel = -0.5;
+				m_Graphics->vel = -1.0;
 				mientras = true;
 			}
 			break;

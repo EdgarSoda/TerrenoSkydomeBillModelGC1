@@ -112,7 +112,7 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		return false;
 	}
 
-	modelazo = new Modelos(hwnd, m_OpenGL, L"arbol.png", 0.5, 0, 0);
+	modelazo = new Modelos(hwnd, m_OpenGL, L"PINO.png", 0.5, 0, 0);
 
 	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
 	if (!m_ModeloShader)
