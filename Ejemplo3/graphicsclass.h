@@ -52,7 +52,20 @@ private:
 	SkyDome* sky;
 	Billboard* bill;
 	Modelos* modelazo;
-	Modelos* modelazo_2;
+	Modelos* modelazo_granero;
+	Modelos* modelazo_cobertizo;
+	Modelos* modelazo_camioneta;
+	Modelos* modelazo_cajas;
+	Modelos* modelazo_establo;
+	Modelos* modelazo_arboles_cortados;
+
+
+
+
+
+
+
+
 	LightShaderClass* m_LightShader;
 	LightShaderClass* m_LightShaderSky;
 	LightShaderClass* m_BillShader;

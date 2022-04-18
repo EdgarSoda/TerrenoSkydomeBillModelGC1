@@ -112,14 +112,123 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		return false;
 	}
 
-	//Modelo de la cerca de madera:
-	modelazo = new Modelos(hwnd, m_OpenGL, "cerca.obj", L"PINO.png", L"PinoNorm.jpg",L"PinoEspecular.jpg",0.5, 0.0, 0.0,4);
+
+	//CARGANDO LOS MODELOS:
+
+	//CASA PRINCIPAL:
+	modelazo = new Modelos(hwnd, m_OpenGL, "CASAPRINCIPAL.obj", L"PINO.png", L"CASA_PRINCIPAL_NORMALES.png",L"ARBOLES_CORTADOS_ESPECULAR.png",0.5, 0.0, 0.0,4);
 
 	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
 	if (!m_ModeloShader)
 	{
 		return false;
 	}
+
+	//GRANERO:
+	modelazo_granero = new Modelos(hwnd, m_OpenGL, "GRANERO.obj", L"granero_textura.png", L"CASA_PRINCIPAL_NORMALES.png", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 5);
+
+	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader)
+	{
+		return false;
+	}
+
+	//COBERTIZO:
+
+	modelazo_cobertizo = new Modelos(hwnd, m_OpenGL, "COBERTIZO.obj", L"COBERTIZO_textura1.png", L"CASA_PRINCIPAL_NORMALES.png", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 6);
+
+	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader)
+	{
+		return false;
+	}
+
+	//CAMIONETA:
+
+	modelazo_camioneta = new Modelos(hwnd, m_OpenGL, "CAMIONETA.obj", L"PINO.png", L"CASA_PRINCIPAL_NORMALES.png", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 7);
+
+	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader)
+	{
+		return false;
+	}
+
+	//CAJAS:
+
+	modelazo_cajas = new Modelos(hwnd, m_OpenGL, "CAJAS.obj", L"cajastextura.jpg", L"CASA_PRINCIPAL_NORMALES.png", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 60);
+
+	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader)
+	{
+		return false;
+	}
+
+	//ESTABLO:
+
+	modelazo_establo = new Modelos(hwnd, m_OpenGL, "establo.obj", L"PINO.png", L"CASA_PRINCIPAL_NORMALES.png", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 61);
+
+	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader)
+	{
+		return false;
+	}
+
+	//ARBOLES CORTADOS:
+
+	modelazo_arboles_cortados = new Modelos(hwnd, m_OpenGL, "ARBOLES_CORTADOS.obj", L"arbol_cortado.jpg", L"CASA_PRINCIPAL_NORMALES.png", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 62);
+
+	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader)
+	{
+		return false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// Initialize the light shader object.
 	result = m_ModeloShader->Initialize(m_OpenGL, hwnd);
@@ -129,27 +238,9 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		return false;
 	}
 
-	//Modelo de la casa de madera:
 
-	modelazo_2 = new Modelos(hwnd, m_OpenGL, "casademadera.obj", L"camiontexturabase.png", L"PinoNorm.jpg", L"PinoEspecular.jpg", 1.7, -5.0, -5.0, 5);
 	
-	m_ModeloShader_2 = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
-	if (!m_ModeloShader_2)
-	{
-		return false;
-	}
-
-	// Initialize the light shader object.
-	result = m_ModeloShader_2->Initialize(m_OpenGL, hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, (LPCSTR)"Could not initialize the light shader object.", (LPCSTR)"Error", MB_OK);
-		return false;
-	}
-
-
-	//Modelo del pino:
-
+	
 
 
 
@@ -309,6 +400,12 @@ bool GraphicsClass::Render(float rotation)
 	// Render the model using the light shader.
 	bill->Render(m_OpenGL);
 	
+
+
+
+
+	//CASA PRINCIPAL:
+	
 	// Set the light shader as the current shader program and set the matrices that it will use for rendering.
 	m_ModeloShader->SetShader(m_OpenGL);
 	float modmatrix[16];
@@ -325,24 +422,107 @@ bool GraphicsClass::Render(float rotation)
 	// Present the rendered scene to the screen.
 	
 
-
-
-	// 
-	// MODELO 2
-	// 
-	// Set the light shader as the current shader program and set the matrices that it will use for rendering.
-	m_ModeloShader_2->SetShader(m_OpenGL);
-	float modmatrix_2[16];
+	//GRANERO:
+	m_ModeloShader->SetShader(m_OpenGL);
+	float modmatrix2[16];
 	m_OpenGL->GetWorldMatrix(modmatrix);
-	m_OpenGL->MatrixTranslation(modmatrix, modelazo->x, terreno->Superficie(modelazo->x, modelazo->z), modelazo->z);
-	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
-	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
-	m_ModeloShader_2->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
-	m_ModeloShader_2->Pon1Entero(m_OpenGL, (char*)"modtext", 5);
-	m_ModeloShader_2->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
-	m_ModeloShader_2->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo_granero->x, terreno->Superficie(modelazo_granero->x, modelazo_granero->z), modelazo_granero->z);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 5);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 	// Render the model using the light shader.
-	modelazo_2->Render(m_OpenGL);
+	modelazo_granero->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+
+
+	//COBERTIZO:
+	m_ModeloShader->SetShader(m_OpenGL);
+	float modmatrix3[16];
+	m_OpenGL->GetWorldMatrix(modmatrix);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo_cobertizo->x, terreno->Superficie(modelazo_cobertizo->x, modelazo_cobertizo->z), modelazo_cobertizo->z);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 6);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	modelazo_cobertizo->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+
+
+	//CAMIONETA
+	m_ModeloShader->SetShader(m_OpenGL);
+	float modmatrix4[16];
+	m_OpenGL->GetWorldMatrix(modmatrix);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo_camioneta->x, terreno->Superficie(modelazo_camioneta->x, modelazo_camioneta->z), modelazo_camioneta->z);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 7);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	modelazo_camioneta->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+
+
+	//CAJAS:
+	m_ModeloShader->SetShader(m_OpenGL);
+	float modmatrix5[16];
+	m_OpenGL->GetWorldMatrix(modmatrix);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo_cajas->x, terreno->Superficie(modelazo_cajas->x, modelazo_cajas->z), modelazo_cajas->z);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 60);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	modelazo_cajas->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+
+
+	
+	//ESTABLO:
+	m_ModeloShader->SetShader(m_OpenGL);
+	float modmatrix6[16];
+	m_OpenGL->GetWorldMatrix(modmatrix);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo_establo->x, terreno->Superficie(modelazo_establo->x, modelazo_establo->z), modelazo_establo->z);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 61);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	modelazo_establo->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+
+	
+	//ARBOLES CORTADOS:
+	m_ModeloShader->SetShader(m_OpenGL);
+	float modmatrix7[16];
+	m_OpenGL->GetWorldMatrix(modmatrix);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo_arboles_cortados->x, terreno->Superficie(modelazo_arboles_cortados->x, modelazo_arboles_cortados->z), modelazo_arboles_cortados->z);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 62);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	modelazo_arboles_cortados->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+
+
+
+
+
+
 	// Present the rendered scene to the screen.
 	m_OpenGL->EndScene();
 
