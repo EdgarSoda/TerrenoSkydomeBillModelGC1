@@ -1,5 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename: graphicsclass.cpp
+// AQUI SE SUBEN LOS MODELOS
 ////////////////////////////////////////////////////////////////////////////////
 #include "graphicsclass.h"
 
@@ -51,9 +52,10 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 	{L"mezcla.jpg"} };
 	int num_texts[] = {10,11,12,13,14,15,16};
 
-	terreno = new Terreno(hwnd, m_OpenGL, L"terrenonuevo6.jpg", texturas,
+	terreno = new Terreno(hwnd, m_OpenGL, L"terrenonuevo7.jpg", texturas,
 		(float)400, (float)400, num_texts);
 
+	//Creamos el shader del skydome
 	// Create the light shader object.
 	m_LightShader = new LightShaderClass((char*)"light.vs", (char*)"light.ps");
 	if(!m_LightShader)
@@ -116,7 +118,7 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 	//CARGANDO LOS MODELOS:
 
 	//CASA PRINCIPAL:
-	modelazo = new Modelos(hwnd, m_OpenGL, "CASAPRINCIPAL.obj", L"PINO.png", L"CASA_PRINCIPAL_NORMALES.png",L"ARBOLES_CORTADOS_ESPECULAR.png",0.5, 0.0, 0.0,4);
+	modelazo = new Modelos(hwnd, m_OpenGL, "casaprincipal_1.obj", L"casaprincipal_1_textura.png", L"casaprincipal_Normal.png",L"ARBOLES_CORTADOS_ESPECULAR.png",0.5, 0.0, 0.0,4);
 
 	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
 	if (!m_ModeloShader)
@@ -183,42 +185,14 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 		return false;
 	}
 
+	//CASA PRINCIPAL 2:
+	modelazo_casa_principal_2 = new Modelos(hwnd, m_OpenGL, "casaprincipal_2.obj", L"casaprincipal_2_textura.png", L"casaprincipal_Normal.png", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 63);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader)
+	{
+		return false;
+	}
 
 
 
@@ -352,6 +326,19 @@ bool GraphicsClass::Render(float rotation)
 	m_Light->GetDirection(lightDirection);
 	m_Light->GetDiffuseColor(diffuseLightColor);
 
+
+
+	//CONTADOR:
+	//HDD = HORA DEL DIA
+	static float hdd = 0;
+	hdd += 0.01;
+
+	if (hdd > 21.0) { //21 horas son las 9:00 pm
+		hdd = 0.0;
+	}
+
+
+
 	glDisable(GL_DEPTH_TEST);
 	m_LightShaderSky->SetShader(m_OpenGL);
 	m_LightShaderSky->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrix);
@@ -360,8 +347,25 @@ bool GraphicsClass::Render(float rotation)
 	m_LightShaderSky->Pon1Entero(m_OpenGL, (char*)"cielo", 2);
 	m_LightShaderSky->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_LightShaderSky->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+
+	//Creación para el cambio de textura del cielo.
+	//Falta gregar la función Pon1Flotante
+
+	//m_LightShaderSky->Pon1Flotante(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+
+	//Minuto 1:00:00
+	//https://uanledu.sharepoint.com/sites/Section_02305010133802031420000101516004/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FSection_02305010133802031420000101516004%2FShared%20Documents%2FGeneral%2FRecordings%2FReunión%20en%20_General_-20220311_162009-Grabación%20de%20la%20reunión%2Emp4&parent=%2Fsites%2FSection_02305010133802031420000101516004%2FShared%20Documents%2FGeneral%2FRecordings
+
+
+
+
 	sky->Render(m_OpenGL);
 	glEnable(GL_DEPTH_TEST);
+
+	
+
+
+
 	// Rotate the world matrix by the rotation value so that the triangle will spin.
 	//m_OpenGL->MatrixRotationY(worldMatrix, rotation);
 
@@ -516,6 +520,22 @@ bool GraphicsClass::Render(float rotation)
 	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 	// Render the model using the light shader.
 	modelazo_arboles_cortados->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+		
+
+	//CASA PRINCIPAL 2:
+	m_ModeloShader->SetShader(m_OpenGL);
+	float modmatrix8[16];
+	m_OpenGL->GetWorldMatrix(modmatrix);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo_casa_principal_2->x, terreno->Superficie(modelazo_casa_principal_2->x, modelazo_casa_principal_2->z), modelazo_arboles_cortados->z);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 63);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	modelazo_casa_principal_2->Render(m_OpenGL);
 	// Present the rendered scene to the screen.
 
 

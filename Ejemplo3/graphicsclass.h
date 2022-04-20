@@ -58,6 +58,7 @@ private:
 	Modelos* modelazo_cajas;
 	Modelos* modelazo_establo;
 	Modelos* modelazo_arboles_cortados;
+	Modelos* modelazo_casa_principal_2;
 
 
 

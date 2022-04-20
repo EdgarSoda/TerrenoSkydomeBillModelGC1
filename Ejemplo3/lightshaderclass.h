@@ -35,6 +35,7 @@ public:
 	bool Pon1Entero(OpenGLClass* OpenGL, char* nombre, int);
 	bool PonVec3(OpenGLClass* OpenGL, char* nombre, float* vector);
 	bool PonVec4(OpenGLClass* OpenGL, char* nombre, float* vector);
+	void Pon1Flotante(OpenGLClass* OpenGL, float vector);
 
 private:
 	bool InitializeShader(char*, char*, OpenGLClass*, HWND);

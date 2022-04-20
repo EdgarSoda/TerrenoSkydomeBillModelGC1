@@ -368,3 +368,10 @@ bool LightShaderClass::PonVec4(OpenGLClass* OpenGL, char* nombre, float* vector)
 	OpenGL->glUniform4fv(location, 1, vector);
 	return true;
 }
+
+void LightShaderClass::Pon1Flotante(OpenGLClass* OpenGL, float vector)
+{
+	//glUniform1f(getUniformLocation(uniform), vector);
+
+}
+
