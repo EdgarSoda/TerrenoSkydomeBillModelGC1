@@ -347,6 +347,9 @@ bool GraphicsClass::Render(float rotation)
 	m_LightShaderSky->Pon1Entero(m_OpenGL, (char*)"cielo", 2);
 	m_LightShaderSky->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_LightShaderSky->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	//m_LightShaderSky->Pon1Flotante(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+
+
 
 	//Creación para el cambio de textura del cielo.
 	//Falta gregar la función Pon1Flotante

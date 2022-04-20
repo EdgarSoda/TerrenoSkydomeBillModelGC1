@@ -82,7 +82,13 @@ typedef void (APIENTRY * PFNGLBINDATTRIBLOCATIONPROC) (GLuint program, GLuint in
 typedef GLint (APIENTRY * PFNGLGETUNIFORMLOCATIONPROC) (GLuint program, const char *name);
 typedef void (APIENTRY * PFNGLUNIFORMMATRIX4FVPROC) (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
 typedef void (APIENTRY * PFNGLACTIVETEXTUREPROC) (GLenum texture);
+//Este es para declarar un entero:
 typedef void (APIENTRY * PFNGLUNIFORM1IPROC) (GLint location, GLint v0);
+
+//Está bien que declare así el  "PFNGLUNIFORM1FPROC" ??
+typedef void (APIENTRY * PFNGLUNIFORM1FPROC) (GLint location, GLfloat v0);
+
+
 typedef void (APIENTRY * PFNGLGENERATEMIPMAPPROC) (GLenum target);
 typedef void (APIENTRY * PFNGLDISABLEVERTEXATTRIBARRAYPROC) (GLuint index);
 typedef void (APIENTRY * PFNGLUNIFORM3FVPROC) (GLint location, GLsizei count, const GLfloat *value);
@@ -160,6 +166,7 @@ public:
 	PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv;
 	PFNGLACTIVETEXTUREPROC glActiveTexture;
 	PFNGLUNIFORM1IPROC glUniform1i;
+	PFNGLUNIFORM1FPROC glUniform1f;
 	PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 	PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
 	PFNGLUNIFORM3FVPROC glUniform3fv;

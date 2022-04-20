@@ -369,8 +369,19 @@ bool LightShaderClass::PonVec4(OpenGLClass* OpenGL, char* nombre, float* vector)
 	return true;
 }
 
-void LightShaderClass::Pon1Flotante(OpenGLClass* OpenGL, float vector)
+bool LightShaderClass::Pon1Flotante(OpenGLClass* OpenGL, char* nombre, float vector)
 {
+	unsigned int location;
+
+	// Set the texture in the pixel shader to use the data from the first texture unit.
+	location = OpenGL->glGetUniformLocation(m_shaderProgram, nombre);
+	if (location == -1)
+	{
+		return false;
+	}
+	OpenGL->glUniform1f(location, vector);
+
+	return true;
 	//glUniform1f(getUniformLocation(uniform), vector);
 
 }

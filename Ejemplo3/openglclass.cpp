@@ -462,6 +462,18 @@ bool OpenGLClass::LoadExtensionList()
 		return false;
 	}
 
+
+	glUniform1f = (PFNGLUNIFORM1FPROC)wglGetProcAddress("glUniform1i");
+	if(!glUniform1f)
+	{
+		return false;
+	}
+
+
+
+
+
+
 	glGenerateMipmap = (PFNGLGENERATEMIPMAPPROC)wglGetProcAddress("glGenerateMipmap");
 	if(!glGenerateMipmap)
 	{
