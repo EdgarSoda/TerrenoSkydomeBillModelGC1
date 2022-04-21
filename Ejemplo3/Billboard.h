@@ -24,7 +24,7 @@ public:
 	unsigned int m_vertexArrayId, m_vertexBufferId, m_indexBufferId;
 	unsigned int m_textureID;
 
-	Billboard(HWND hWnd, OpenGLClass* OpenGL, const wchar_t textura[], float escala, float x, float z)
+	Billboard(HWND hWnd, OpenGLClass* OpenGL, const wchar_t textura[], float escala, float x, float z, int texID)
 	{
 		this->escala = escala;		
 		this->x = x;
@@ -39,7 +39,7 @@ public:
 
 		Carga(textura);
 		// Set the unique texture unit in which to store the data.
-		OpenGL->glActiveTexture(GL_TEXTURE0 + 3);
+		OpenGL->glActiveTexture(GL_TEXTURE0 + texID);
 
 		// Generate an ID for the texture.
 		glGenTextures(1, &m_textureID);

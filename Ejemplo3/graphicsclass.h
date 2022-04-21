@@ -51,6 +51,11 @@ private:
 	Terreno* terreno;
 	SkyDome* sky;
 	Billboard* bill;
+	Billboard* bill_arbol2;
+
+
+
+
 	Modelos* modelazo;
 	Modelos* modelazo_granero;
 	Modelos* modelazo_cobertizo;
@@ -59,12 +64,8 @@ private:
 	Modelos* modelazo_establo;
 	Modelos* modelazo_arboles_cortados;
 	Modelos* modelazo_casa_principal_2;
-
-
-
-
-
-
+	Modelos* modelazo_silla;
+	Modelos* modelazo_roca;
 
 
 	LightShaderClass* m_LightShader;

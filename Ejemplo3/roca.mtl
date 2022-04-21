@@ -1,0 +1,70 @@
+newmtl CubeSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 0.00
+newmtl Cube_Cube_002SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 0.00
+newmtl LoD_1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 0.00
+newmtl arbolcortado_Material_tree_stomp_colmap_tst
+illum 4
+Kd 0.23 0.07 0.11
+Ka 0.40 0.40 0.40
+Tf 1.00 1.00 1.00
+Ni 1.50
+Ks 0.90 0.90 0.90
+Ns 0.06
+newmtl cajas_Box1SG
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.40 0.40 0.40
+Tf 1.00 1.00 1.00
+Ni 1.52
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl camion_SmallTruckSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.40 0.40 0.40
+Tf 1.00 1.00 1.00
+Ni 1.50
+Ks 0.90 0.90 0.90
+Ns 0.06
+newmtl cerca_initialShadingGroup
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl cobertizo_03___Default
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.40 0.40 0.40
+Tf 1.00 1.00 1.00
+Ni 1.52
+Ks 1.00 1.00 1.00
+Ns 0.06
+newmtl initialShadingGroup
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl wire_028089177
+illum 4
+Kd 0.11 0.35 0.69
+Ka 0.11 0.35 0.69
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.35 0.35 0.35
+Ns 32.00

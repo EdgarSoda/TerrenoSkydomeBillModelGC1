@@ -29,9 +29,32 @@ uniform vec4 diffuseLightColor;
 void main(void)
 {
 	vec4 textureColor;
+	float propor;
 
 	// Obtener la textura difusa o de color
 	textureColor = texture(cielo, texCoord);
 	
+//				if(hdd > 5.00 && hdd < 6.0)
+//				{
+//					propor = hdd - 5.0; 
+//					textureColor mix = mix(tn, tam, hdd - 5.0);
+//				}
+//
+//				if (hdd >=6.0 && hdd <7.0) //ponemos la textura de amanecer entre 6 y 7 am
+//					textureColor = tam;
+//
+//
+//				if(hdd > 7.00 && hdd < 8.0)
+//				{
+//					propor = hdd - 5.0; 
+//					textureColor mix = mix(tam, td, hdd - 7.0); 
+//				}
+//
+//				if (hdd >=8.0 && hdd <21.0) //ponemos la textura del dia entre 8 am y las 21 hrs
+//					textureColor = td;
+
+
+
+
 	outputColor = textureColor;
 }
