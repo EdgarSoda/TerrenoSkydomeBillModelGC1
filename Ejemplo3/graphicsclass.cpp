@@ -105,7 +105,7 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 
 	// ARBOL2 BILLBOARD:
 
-	bill_arbol2 = new Billboard(hwnd, m_OpenGL, L"arbolito.png", 10.0f, 25.0f, 30.0f,2);
+	bill_arbol2 = new Billboard(hwnd, m_OpenGL, L"arbolito.png", 10.0f, 25.0f, 30.0f,3);
 
 
 
@@ -388,7 +388,7 @@ bool GraphicsClass::Render(float rotation)
 	m_LightShaderSky->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrix);
 	m_LightShaderSky->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
 	m_LightShaderSky->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
-	m_LightShaderSky->Pon1Entero(m_OpenGL, (char*)"cielo", 15);
+	m_LightShaderSky->Pon1Entero(m_OpenGL, (char*)"cielo", 2);
 	m_LightShaderSky->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_LightShaderSky->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 
@@ -451,7 +451,7 @@ bool GraphicsClass::Render(float rotation)
 	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrixBill);
 	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
 	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
-	m_BillShader->Pon1Entero(m_OpenGL, (char*)"billtext", 1); 
+	m_BillShader->Pon1Entero(m_OpenGL, (char*)"billtext", 3); 
 	m_BillShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_BillShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 	// Render the model using the light shader.
@@ -470,7 +470,7 @@ bool GraphicsClass::Render(float rotation)
 	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrixBill);
 	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
 	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
-	m_BillShader->Pon1Entero(m_OpenGL, (char*)"billtext", 2);
+	m_BillShader->Pon1Entero(m_OpenGL, (char*)"billtext", 3);
 	m_BillShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_BillShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 	// Render the model using the light shader.
