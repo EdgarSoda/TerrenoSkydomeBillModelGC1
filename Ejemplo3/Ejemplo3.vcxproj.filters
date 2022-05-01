@@ -74,6 +74,9 @@
     <ClInclude Include="Modelos.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="light.ps">
@@ -89,6 +92,12 @@
       <Filter>Archivos de origen</Filter>
     </None>
     <None Include="Modelo.ps">
+      <Filter>Archivos de origen</Filter>
+    </None>
+    <None Include="Water.frag">
+      <Filter>Archivos de origen</Filter>
+    </None>
+    <None Include="Water.vert">
       <Filter>Archivos de origen</Filter>
     </None>
   </ItemGroup>

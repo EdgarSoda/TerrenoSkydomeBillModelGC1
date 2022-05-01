@@ -1,46 +1,57 @@
-#ifndef _billb
-#define _billb
-#include "Imagenes.h"
-#include "VectorRR.h"
+#pragma once
+#ifndef _water
+#define _water
+#include "graphicsclass.h"
 #include "Geometrias.h"
+#include "Imagenes.h"
 
 
-class Billboard : public Primitivos
-{
-
-public:	
-	unsigned int billbTextura;
-	VectorRR Up, derecha;
-	float x, y, z, escala;
-	VectorRR BillCam;
-	//En honor a nuestros ancestros llamaremos "Maya" a la malla
-	//e suna estructura que contiene a los indices y vertices de la figura
-	Maya billbo;
-	//variables locales de la clase para contener los stacks y los slices de la esfera
-	int st, sl;
+class Water : public Primitivos {
+public:
+	Maya water;
 	OpenGLClass* sale;
-	//el nombre numerico de la textura en cuestion, por lo pronto una
-	unsigned int billboTextura;
+
+	unsigned int waterTexture;
 	unsigned int m_vertexArrayId, m_vertexBufferId, m_indexBufferId;
 	unsigned int m_textureID;
+	Water() {
 
-	Billboard(HWND hWnd, OpenGLClass* OpenGL, const wchar_t textura[], float escala, float x, float z, int texID)
-	{
-		this->escala = escala;		
-		this->x = x;
-		this->y = y;
-		this->z = z;
+	}
+	Water(HWND hwnd, OpenGLClass *OpenGL, const wchar_t *texturePath[],int *textureNumber, float anchof, float profz,float canttext) {
+		this->hWnd = hwnd;
 		sale = OpenGL;
-		Up.X = 0;
-		Up.Y = 1;
-		Up.Z = 0;
-		//este vector es el que nos dara el ancho del billboard
-		//cada vez que lo giremos segun la camara
+		
 
-		Carga(textura);
+		Carga(texturePath[0]);
+		int an = Ancho();
+		int alt = Alto();
+		water = Plano(1024, 1024, anchof, profz,40);
+		OpenGL->glActiveTexture(GL_TEXTURE0 + textureNumber[0]);
+
+		// Generate an ID for the texture.
+		glGenTextures(1, &m_textureID);
+
+		// Bind the texture as a 2D texture.
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
+
+		// Load the image data into the texture unit.
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Ancho(), Alto(), 0,
+			GL_RGBA, GL_UNSIGNED_BYTE, Dir_Imagen());
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		// Set the texture filtering.
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+		// Generate mipmaps for the texture.
+		OpenGL->glGenerateMipmap(GL_TEXTURE_2D);
+		Descarga();
+
+		Carga(texturePath[1]);
 		// Set the unique texture unit in which to store the data.
-		OpenGL->glActiveTexture(GL_TEXTURE0 + 3);
-		//OpenGL->glActiveTexture(GL_TEXTURE0 + texID);
+		OpenGL->glActiveTexture(GL_TEXTURE0 + textureNumber[1]);
 
 		// Generate an ID for the texture.
 		glGenTextures(1, &m_textureID);
@@ -64,8 +75,6 @@ public:
 
 		Descarga();
 
-		billbo = BillBoardBasico(escala);
-
 		// Allocate an OpenGL vertex array object.
 		OpenGL->glGenVertexArrays(1, &m_vertexArrayId);
 
@@ -77,7 +86,7 @@ public:
 
 		// Bind the vertex buffer and load the vertex (position, texture, and normal) data into the vertex buffer.
 		OpenGL->glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-		OpenGL->glBufferData(GL_ARRAY_BUFFER, cantVert * sizeof(Vertices), billbo.maya, GL_STATIC_DRAW);
+		OpenGL->glBufferData(GL_ARRAY_BUFFER, cantVert * sizeof(Vertices), water.maya, GL_STATIC_DRAW);
 
 		// Enable the three vertex array attributes.
 		OpenGL->glEnableVertexAttribArray(0);  // Vertex position.
@@ -112,29 +121,57 @@ public:
 		// Bind the index buffer and load the index data into it.
 		OpenGL->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferId);
 		OpenGL->glBufferData(GL_ELEMENT_ARRAY_BUFFER, cantIndices * sizeof(unsigned int),
-			billbo.indices, GL_STATIC_DRAW);
+			water.indices, GL_STATIC_DRAW);
+
+		// Now that the buffers have been loaded we can release the array data.
+		delete[] water.indices;
+		water.indices = 0;
 
 		
+
 	}
+	
+	void SetTexture(OpenGLClass* OpenGL, const wchar_t* texture, int textureNumber) {
+		Carga(texture);
+		// Set the unique texture unit in which to store the data.
+		OpenGL->glActiveTexture(GL_TEXTURE0 + textureNumber);
 
-	~Billboard()
+		// Generate an ID for the texture.
+		glGenTextures(1, &m_textureID);
+
+		// Bind the texture as a 2D texture.
+		glBindTexture(GL_TEXTURE_2D, m_textureID);
+
+		// Load the image data into the texture unit.
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Ancho(), Alto(), 0,
+			GL_RGBA, GL_UNSIGNED_BYTE, Dir_Imagen());
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		// Set the texture filtering.
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+		// Generate mipmaps for the texture.
+		OpenGL->glGenerateMipmap(GL_TEXTURE_2D);
+
+		Descarga();
+	}
+	~Water()
 	{
-		// Now that the buffers have been loaded we can release the array data.
-		delete[] billbo.maya;
-		billbo.maya = 0;
-
-		delete[] billbo.indices;
-		billbo.indices = 0;
-		glDeleteTextures(1, &billbTextura);
+		//nos aseguramos de disponer de los recursos previamente reservados
+		delete water.maya;
+		delete water.indices;
+		glDeleteTextures(1, &waterTexture);
 		Shutdown(sale);
 	}
 
+
 	void Render(OpenGLClass* OpenGL)
 	{
-		//habilitamos el culling para reducir tiempo de procesamiento de las texturas
-		//las texturas se analizan pixel a pixel para determinar que se imprimen o no
-		//por lo que aunque no la veamos nos costo, por eso la eliminamos.	
-		RenderBuffers(OpenGL);		
+
+		RenderBuffers(OpenGL);
 		return;
 	}
 
@@ -178,20 +215,5 @@ public:
 
 		return;
 	}
-
-	float angBill(float xc, float zc)
-	{
-		float vecx = xc - x;
-		float vecz = zc - z;
-
-		float ang = acos(vecz / (sqrt(vecx * vecx + vecz * vecz)));
-
-		if (vecx >= 0)
-			ang += 3.1415;
-		
-		return ang;
-	}
-
 };
-
-#endif 
+#endif // !_water

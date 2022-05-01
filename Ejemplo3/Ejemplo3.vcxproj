@@ -150,6 +150,7 @@
     <ClInclude Include="SkyDome.h" />
     <ClInclude Include="Terreno.h" />
     <ClInclude Include="VectorRR.h" />
+    <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="light.ps" />
@@ -157,6 +158,8 @@
     <None Include="Modelo.ps" />
     <None Include="Sky.ps" />
     <None Include="Sky.vs" />
+    <None Include="Water.frag" />
+    <None Include="Water.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Bill.vs" />

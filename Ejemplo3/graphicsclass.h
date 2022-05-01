@@ -16,6 +16,7 @@
 #include "SkyDome.h"
 #include "Billboard.h"
 #include "Modelos.h"
+#include "Water.h"
 
 
 /////////////
@@ -51,6 +52,9 @@ private:
 	Terreno* terreno;
 	SkyDome* sky;
 	Billboard* bill;
+	Billboard* bill2;
+	Billboard* bill3;
+	Billboard* bill4;
 	Billboard* bill_arbol2;
 
 
@@ -66,6 +70,7 @@ private:
 	Modelos* modelazo_casa_principal_2;
 	Modelos* modelazo_silla;
 	Modelos* modelazo_roca;
+	Water* m_Water;
 
 
 	LightShaderClass* m_LightShader;
@@ -73,6 +78,7 @@ private:
 	LightShaderClass* m_BillShader;
 	LightShaderClass* m_ModeloShader;
 	LightShaderClass* m_ModeloShader_2;
+	LightShaderClass* m_WaterShader;
 	LightClass* m_Light;
 };
 
