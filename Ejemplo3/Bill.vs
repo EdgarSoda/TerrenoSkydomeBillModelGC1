@@ -17,6 +17,7 @@ in vec3 inputBinormal;
 // OUTPUT VARIABLES //
 //////////////////////
 out vec2 texCoord;
+out vec2 texCoord2;
 
 ///////////////////////
 // UNIFORM VARIABLES //

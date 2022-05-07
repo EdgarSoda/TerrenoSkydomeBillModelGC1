@@ -52,6 +52,8 @@ private:
 	Terreno* terreno;
 	SkyDome* sky;
 	Billboard* arbol_bill;
+	Billboard* arbol_bill2;
+	Billboard* miel_bill;
 
 
 
@@ -65,6 +67,7 @@ private:
 	Modelos* modelazo_casa_principal_2;
 	Modelos* modelazo_silla;
 	Modelos* modelazo_roca;
+	Modelos* modelazo_agua;
 	Water* m_Water;
 
 

@@ -109,6 +109,8 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 	// ARBOL BILLBOARD:
 
 	arbol_bill = new Billboard(hwnd, m_OpenGL, L"arboldenaranjas.png", 10.0f, 25.0f, 110.0f,17);
+	arbol_bill2 = new Billboard(hwnd, m_OpenGL, L"arbolito2.png", 20.0f, 20.0f, 130.0f,18);
+	miel_bill = new Billboard(hwnd, m_OpenGL, L"miel.png", 2.0f, 45.0f, 10.0f,19);
 
 
 
@@ -253,6 +255,16 @@ bool GraphicsClass::Initialize(OpenGLClass* OpenGL, HWND hwnd)
 	
 	//ROCA:
 	modelazo_roca = new Modelos(hwnd, m_OpenGL, "roca.obj", L"roca_textura.jpg", L"casaprincipal_Normal.png", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 65);
+
+	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
+	if (!m_ModeloShader)
+	{
+		return false;
+	}
+
+	
+	//AGUA:
+	modelazo_agua = new Modelos(hwnd, m_OpenGL, "Plano.obj", L"agua_text.jpg", L"agua_norm.jpg", L"ARBOLES_CORTADOS_ESPECULAR.png", 0.5, 0.0, 0.0, 21);
 
 	m_ModeloShader = new LightShaderClass((char*)"Modelo.vs", (char*)"Modelo.ps");
 	if (!m_ModeloShader)
@@ -484,6 +496,44 @@ bool GraphicsClass::Render(float rotation)
 	arbol_bill->Render(m_OpenGL);
 	
 
+	//Arbol 2
+
+	//// Set the light shader as the current shader program and set the matrices that it will use for rendering.
+	// 
+	m_OpenGL->MatrixTranslation(worldMatrixBill, arbol_bill2->x, terreno->Superficie(arbol_bill2->x, arbol_bill2->z) - 1, arbol_bill2->z);
+	float rotay2[16];
+	m_OpenGL->MatrixRotationY(rotay2, -arbol_bill2->angBill(m_Camera->GetXPos(), m_Camera->GetZPos()));
+	m_OpenGL->MatrixMultiply(worldMatrixBill, rotay2, worldMatrixBill);
+	m_BillShader->SetShader(m_OpenGL);
+	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrixBill);
+	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_BillShader->Pon1Entero(m_OpenGL, (char*)"mibillboard", 18); 
+	m_BillShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_BillShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	arbol_bill2->Render(m_OpenGL);
+	
+
+	//Miel
+
+	//// Set the light shader as the current shader program and set the matrices that it will use for rendering.
+	// 
+	m_OpenGL->MatrixTranslation(worldMatrixBill, miel_bill->x, terreno->Superficie(miel_bill->x, miel_bill->z) - 1, miel_bill->z);
+	float rotay3[16];
+	m_OpenGL->MatrixRotationY(rotay2, -miel_bill->angBill(m_Camera->GetXPos(), m_Camera->GetZPos()));
+	m_OpenGL->MatrixMultiply(worldMatrixBill, rotay2, worldMatrixBill);
+	m_BillShader->SetShader(m_OpenGL);
+	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrixBill);
+	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_BillShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_BillShader->Pon1Entero(m_OpenGL, (char*)"mibillboard", 19);
+	m_BillShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_BillShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	miel_bill->Render(m_OpenGL);
+	
+
 	//CASA PRINCIPAL:
 	
 	// Set the light shader as the current shader program and set the matrices that it will use for rendering.
@@ -647,6 +697,23 @@ bool GraphicsClass::Render(float rotation)
 	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
 	// Render the model using the light shader.
 	modelazo_roca->Render(m_OpenGL);
+	// Present the rendered scene to the screen.
+
+	
+	
+	//ROCA:
+	m_ModeloShader->SetShader(m_OpenGL);
+	float modmatrix11[16];
+	m_OpenGL->GetWorldMatrix(modmatrix);
+	m_OpenGL->MatrixTranslation(modmatrix, modelazo_agua->x, terreno->Superficie(modelazo_agua->x, modelazo_agua->z), modelazo_agua->z);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", modmatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"viewMatrix", viewMatrix);
+	m_ModeloShader->PonMatriz4x4(m_OpenGL, (char*)"projectionMatrix", projectionMatrix);
+	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 21);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+	// Render the model using the light shader.
+	modelazo_agua->Render(m_OpenGL);
 	// Present the rendered scene to the screen.
 
 
