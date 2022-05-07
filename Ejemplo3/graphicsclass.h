@@ -51,12 +51,7 @@ private:
 	CameraClass* m_Camera;	
 	Terreno* terreno;
 	SkyDome* sky;
-	Billboard* bill;
-	Billboard* bill2;
-	Billboard* bill3;
-	Billboard* bill4;
-	Billboard* bill_arbol2;
-
+	Billboard* arbol_bill;
 
 
 
@@ -79,7 +74,10 @@ private:
 	LightShaderClass* m_ModeloShader;
 	LightShaderClass* m_ModeloShader_2;
 	LightShaderClass* m_WaterShader;
+	LightShaderClass* m_VeggieShader;
 	LightClass* m_Light;
+
+
 };
 
 #endif

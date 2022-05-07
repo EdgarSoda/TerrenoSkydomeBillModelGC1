@@ -39,7 +39,7 @@ public:
 
 		Carga(textura);
 		// Set the unique texture unit in which to store the data.
-		OpenGL->glActiveTexture(GL_TEXTURE0 + 3);
+		OpenGL->glActiveTexture(GL_TEXTURE0 + texID);
 		//OpenGL->glActiveTexture(GL_TEXTURE0 + texID);
 
 		// Generate an ID for the texture.

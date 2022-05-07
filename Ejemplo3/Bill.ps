@@ -18,7 +18,7 @@ out vec4 outputColor;
 ///////////////////////
 // UNIFORM VARIABLES //
 ///////////////////////
-uniform sampler2D billtext;
+uniform sampler2D mibillboard;
 uniform vec3 lightDirection;
 uniform vec4 diffuseLightColor;
 
@@ -31,7 +31,7 @@ void main(void)
 	vec4 textureColor;
 
 	// Obtener la textura difusa o de color
-	textureColor = texture(billtext, texCoord);	
+	textureColor = texture(mibillboard, texCoord);	
 	if (textureColor.a < 0.1)
 		discard;
 	else
