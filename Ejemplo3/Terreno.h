@@ -109,6 +109,7 @@ public:
 
 		// Generate an ID for the texture.
 		glGenTextures(1, &m_textureID);
+		glGenTextures(1, &m_textureID);
 
 		// Bind the texture as a 2D texture.
 		glBindTexture(GL_TEXTURE_2D, m_textureID);

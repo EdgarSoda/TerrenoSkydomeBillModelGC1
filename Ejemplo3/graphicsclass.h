@@ -51,9 +51,13 @@ private:
 	CameraClass* m_Camera;	
 	Terreno* terreno;
 	SkyDome* sky;
+
 	Billboard* arbol_bill;
 	Billboard* arbol_bill2;
 	Billboard* miel_bill;
+	Billboard* barrill_bill;
+	Billboard* pozo_bill;
+	Billboard* cartel_bill;
 
 
 
