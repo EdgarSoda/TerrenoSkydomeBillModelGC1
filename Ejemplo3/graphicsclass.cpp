@@ -384,6 +384,20 @@ bool GraphicsClass::Render(float rotation)
 	float diffuseLightColor[4];
 	float worldMatrixBill[16];
 
+	//Luz blanca para el dia
+	float diffuseLightColor1[4] = {1,1,1,1};
+	//Luz blanca para el atardecer
+	float diffuseLightColor2[4] = { 1,1,0.2,1 };
+
+
+	float factores1[4] = { 0.6, 1.0, 1.0, 1.0 };	//FAA + FAD + FAS + 1.0:
+
+
+	float factores2[4] = { 0.1, 0.4, 0.2, 1.0 };	//FAA + FAD + FAS + 1.0:
+
+
+	
+
 
 	// Clear the buffers to begin the scene.
 	m_OpenGL->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
@@ -404,8 +418,37 @@ bool GraphicsClass::Render(float rotation)
 	//////////////////////////////////////////////////////////
 
 	// Get the light properties.
-	m_Light->GetDirection(lightDirection);
+	//m_Light->GetDirection(lightDirection);
 	m_Light->GetDiffuseColor(diffuseLightColor);
+
+	static float cambio = 0;
+	static float angul = 0;
+	lightDirection[0] = cos(angul);
+	lightDirection[1] = sin(angul);
+	lightDirection[2] = 0;
+
+
+	angul += 0.007;
+
+	if (angul > 6.2830)
+		angul = 0;
+
+	if (angul > 0 && angul < 0.5235)
+	{
+		//Los primeros 30 grados
+		cambio = angul / 0.5235;
+	}
+
+
+	if (angul > 2.6179 && angul < 3.1415)
+	{
+		cambio = 1 - ((angul - 2.6179) / 0.5235);
+	}
+
+
+	if (angul > 3.665 && angul < 5.759)
+		angul = 5.759;
+
 
 
 
@@ -461,6 +504,10 @@ bool GraphicsClass::Render(float rotation)
 
 	//Me quedé en el minuto 50
 
+	float envio[3];
+	envio[0] = cambio;
+
+
 	//// Set the light shader as the current shader program and set the matrices that it will use for rendering.
 	m_LightShader->SetShader(m_OpenGL);	
 	m_LightShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrix);
@@ -474,13 +521,23 @@ bool GraphicsClass::Render(float rotation)
 	m_LightShader->Pon1Entero(m_OpenGL, (char*)"shaderTexture5", 15);
 	m_LightShader->Pon1Entero(m_OpenGL, (char*)"mexcla", 16);
 	m_LightShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
-	m_LightShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+
+
+	m_LightShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor1", diffuseLightColor1);
+	m_LightShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor2", diffuseLightColor2);
+
+	m_LightShader->PonVec4(m_OpenGL, (char*)"factores1", factores1);
+	m_LightShader->PonVec4(m_OpenGL, (char*)"factores2", factores2);
+	m_LightShader->PonVec3(m_OpenGL, (char*)"datos", envio);
+
+
 	// Render the model using the light shader.
 	terreno->Render(m_OpenGL);
 
 
 
 	//BILLBOARDS:
+
 
 
 	//Arbol 1:

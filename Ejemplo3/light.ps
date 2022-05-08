@@ -31,6 +31,15 @@ uniform sampler2D mexcla;
 uniform vec3 lightDirection;
 uniform vec4 diffuseLightColor;
 
+//Aqui se reciben factores uno y facotres dos:
+uniform vec4 diffuseLightColor1;
+uniform vec4 diffuseLightColor2;
+uniform vec3 datos;
+
+uniform vec4 factores1;
+uniform vec4 factores2;
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pixel Shader
@@ -43,6 +52,21 @@ void main(void)
 	vec3 normalaza;
 	vec3 lightDir;
 	float lightIntensity;
+
+
+	//Hacemos un mix:
+	vec4 factores = mix(factores2, factores1, datos.x);
+	float FAA = factores.x;
+	float FAD = factores.y;
+	float FAS = factores.z;
+
+
+
+
+
+
+
+
 
 	vec4 t1 = texture(shaderTexture, texCoord);
 	vec4 t2 = texture(shaderTexture2, texCoord);
@@ -79,16 +103,33 @@ void main(void)
 	lightDir = -lightDirection;
 
 	// Calcula el monto de luz segun el vector de luz y la normal de la textura.
-	lightIntensity = clamp(dot(NewNormal, lightDir), 0.0f, 1.0f);
-	
+	lightIntensity = FAD * clamp(dot(NewNormal, lightDir), 0.0f, 1.0f);
+
+	//////////////////////////////////
+	//THIS IS CHANGE HORARIO:
+
+	vec4 nuevotono = mix(diffuseLightColor2, diffuseLightColor1, datos.x);
+
+
 	// Determine el monto de luz de color segun la resultante con la normal.
-	outputColor =  clamp((diffuseLightColor * lightIntensity), 0.0f, 1.0f);
 
 
+	outputColor =  clamp((nuevotono * lightIntensity), 0.0f, 1.0f);
+
+	//THIS IS CHANGE HORARIO:
+	///////////////////////////////////
 
 	//Lo que hace "Out put color" es como imprimir
 
+
+	//ASI ERA ANTES:
+		// Multiplica la textura color final.
+	//outputColor = outputColor * textureColor  + 0.1;
+
+	//AHORA ES ASI:
 	// Multiplica la textura color final.
-	outputColor = outputColor * textureColor + 0.1;
+	outputColor = textureColor * (FAA + lightIntensity );
+
+
 	//outputColor = textureColor;
 }
