@@ -427,8 +427,8 @@ bool GraphicsClass::Render(float rotation)
 	lightDirection[1] = sin(angul);
 	lightDirection[2] = 0;
 
-
-	angul += 0.007;
+	//Controlar la velocidad del cambio de horarios:
+	angul += 0.006;
 
 	if (angul > 6.2830)
 		angul = 0;
@@ -462,6 +462,9 @@ bool GraphicsClass::Render(float rotation)
 	}
 
 
+	float envio[3];
+	envio[0] = cambio;
+
 
 	glDisable(GL_DEPTH_TEST);
 	m_LightShaderSky->SetShader(m_OpenGL);
@@ -491,6 +494,14 @@ bool GraphicsClass::Render(float rotation)
 
 
 
+	m_LightShaderSky->PonVec4(m_OpenGL, (char*)"diffuseLightColor1", diffuseLightColor1);
+	m_LightShaderSky->PonVec4(m_OpenGL, (char*)"diffuseLightColor2", diffuseLightColor2);
+
+	m_LightShaderSky->PonVec4(m_OpenGL, (char*)"factores1", factores1);
+	m_LightShaderSky->PonVec4(m_OpenGL, (char*)"factores2", factores2);
+	m_LightShaderSky->PonVec3(m_OpenGL, (char*)"datos", envio);
+
+
 
 	sky->Render(m_OpenGL);
 	glEnable(GL_DEPTH_TEST);
@@ -504,10 +515,7 @@ bool GraphicsClass::Render(float rotation)
 
 	//Me quedé en el minuto 50
 
-	float envio[3];
-	envio[0] = cambio;
-
-
+	
 	//// Set the light shader as the current shader program and set the matrices that it will use for rendering.
 	m_LightShader->SetShader(m_OpenGL);	
 	m_LightShader->PonMatriz4x4(m_OpenGL, (char*)"worldMatrix", worldMatrix);
@@ -555,6 +563,18 @@ bool GraphicsClass::Render(float rotation)
 	m_BillShader->Pon1Entero(m_OpenGL, (char*)"mibillboard", 17); 
 	m_BillShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_BillShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+
+
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor1", diffuseLightColor1);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor2", diffuseLightColor2);
+
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"factores1", factores1);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"factores2", factores2);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"datos", envio);
+
+
+
+
 	// Render the model using the light shader.
 	arbol_bill->Render(m_OpenGL);
 	
