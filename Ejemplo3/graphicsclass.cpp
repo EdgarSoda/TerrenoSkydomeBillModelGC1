@@ -689,6 +689,15 @@ bool GraphicsClass::Render(float rotation)
 	m_ModeloShader->Pon1Entero(m_OpenGL, (char*)"modtext", 4);
 	m_ModeloShader->PonVec3(m_OpenGL, (char*)"lightDirection", lightDirection);
 	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor", diffuseLightColor);
+
+
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor1", diffuseLightColor1);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"diffuseLightColor2", diffuseLightColor2);
+
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"factores1", factores1);
+	m_ModeloShader->PonVec4(m_OpenGL, (char*)"factores2", factores2);
+	m_ModeloShader->PonVec3(m_OpenGL, (char*)"datos", envio);
+
 	// Render the model using the light shader.
 	modelazo->Render(m_OpenGL);
 	// Present the rendered scene to the screen.
